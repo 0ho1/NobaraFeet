@@ -1,6 +1,8 @@
 local a = game:GetService("Players")
+local b = game:GetService("ReplicatedStorage")
 local d = game:GetService("Workspace")
 local e = a.LocalPlayer
+local g = b.Remotes:WaitForChild("ServerCombatHandler")
 
 assert(isnetworkowner, "does not support isnetworkowner.")
 task.wait()
@@ -22,6 +24,7 @@ local function s()
 						z.Humanoid.Health = 0
 						e.Character.HumanoidRootPart.CFrame = z.HumanoidRootPart.CFrame * CFrame.new(0, 10, 0) * CFrame.Angles(math.rad(-90), 0, 0)
 						e.Character.HumanoidRootPart.Velocity = Vector3.new()
+						g:FireServer("HeavyAttack")
 					end
 				end
 			end
