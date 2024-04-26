@@ -1,0 +1,35 @@
+local a = game:GetService("Players")
+local d = game:GetService("Workspace")
+local e = a.LocalPlayer
+
+assert(isnetworkowner, "does not support isnetworkowner.")
+
+local gotTarget = false
+local Target
+
+for y, z in next, d.Entities:GetChildren() do
+	if z.Name ~= e.Name and z:FindFirstChild("Head") then
+		e.Character.HumanoidRootPart.CFrame = z.HumanoidRootPart.CFrame * CFrame.new(0, 10, 0) * CFrame.Angles(math.rad(-90), 0, 0)
+		e.Character.HumanoidRootPart.Velocity = Vector3.new()
+		if e.Character:FindFirstChild("Zanpakuto") then
+			e.Character.CharacterHandler.Remotes.Weapon:FireServer()
+		end
+		g:FireServer("LightAttack")
+		if isnetworkowner(z.HumanoidRootPart) then
+			Target = z.Name
+			
+			z.Head:Destroy()
+			task.wait()
+			z.Humanoid.Health = 0
+			e.Character.HumanoidRootPart.CFrame = z.HumanoidRootPart.CFrame * CFrame.new(0, 10, 0) * CFrame.Angles(math.rad(-90), 0, 0)
+			e.Character.HumanoidRootPart.Velocity = Vector3.new()
+			
+			gotTarget = true
+		end
+	end
+end
+print(gotTarget)
+task.wait(0.1)
+if gotTarget then
+	warn("nilled "..Target)
+end
