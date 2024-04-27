@@ -1,0 +1,37 @@
+local a = game:GetService("Players")
+local b = game:GetService("ReplicatedStorage")
+local d = game:GetService("Workspace")
+local e = a.LocalPlayer
+local g = b.Remotes:WaitForChild("ServerCombatHandler")
+
+assert(isnetworkowner, "does not support isnetworkowner.")
+task.wait()
+
+local function s()
+	coroutine.resume(coroutine.create(function()
+		for y, z in next, d.Entities:GetChildren() do
+			if not game.Players:GetPlayerFromCharacter(z) then
+				if z.Name ~= e.Name and z:FindFirstChild("Head") then
+					if e.Character:FindFirstChild("Zanpakuto") then
+						e.Character.CharacterHandler.Remotes.Weapon:FireServer()
+					end
+					g:FireServer("LightAttack")
+					if isnetworkowner(z.HumanoidRootPart) then
+						z.Head:Destroy()
+						task.wait()
+						z.Humanoid.Health = 0
+						z.HumanoidRootPart.CFrame = CFrame.new(Vector3.new(0, -100000, 0)) * CFrame.Angles(math.rad(-90), 0, 0)
+						z.HumanoidRootPart.Velocity = Vector3.new(0, -1e7, 0)
+						task.wait()
+						z:Destroy()
+					end
+				end
+			end
+		end
+	end))
+end
+
+s()
+d.Entities.ChildAdded:Connect(function()
+	s()
+end)
