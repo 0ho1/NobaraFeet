@@ -19,19 +19,23 @@ local function s()
 		for y, z in next, d.Entities:GetChildren() do
 			if not game.Players:GetPlayerFromCharacter(z) then
 				if z.Name ~= e.Name and z:FindFirstChild("Head") then
-					e.Character.HumanoidRootPart.CFrame = z.HumanoidRootPart.CFrame * CFrame.new(0, 0 + math.random(1, 2), 0) * CFrame.Angles(math.rad(-75), 0, 0)
-					e.Character.HumanoidRootPart.Velocity = Vector3.new()
-					if e.Character:FindFirstChild("Zanpakuto") then
-						e.Character.CharacterHandler.Remotes.Weapon:FireServer()
-					end
-					g:FireServer("LightAttack")
-					if isnetworkowner(z.HumanoidRootPart) or isnetworkowner(z.Head) then
-						z.Head:Destroy()
-						task.wait()
-						z.Humanoid.Health = 0
-						z.HumanoidRootPart.CFrame = CFrame.new(Vector3.new(0, -100000, 0)) * CFrame.Angles(math.rad(-90), 0, 0)
-						z.HumanoidRootPart.Velocity = Vector3.new(0, -1e7, 0)
-						bossKilled = true
+					if z:FindFirstChild("Humanoid") and z:FindFirstChildOfClass("Shirt") and z:FindFirstChildOfClass("Pants") and z:FindFirstChildOfClass("BodyColors") then
+						e.Character.HumanoidRootPart.CFrame = z.HumanoidRootPart.CFrame * CFrame.new(0, 0 + math.random(0, 3), 0) * CFrame.Angles(math.rad(-50), 0, 0)
+						e.Character.HumanoidRootPart.Velocity = Vector3.new()
+						if e.Character:FindFirstChild("Zanpakuto") then
+							e.Character.CharacterHandler.Remotes.Weapon:FireServer()
+						end
+						g:FireServer("LightAttack")
+						if isnetworkowner(z.HumanoidRootPart) or isnetworkowner(z.Head) then
+							if isnetworkowner(z.Head) then
+								z.Head:Destroy()
+							end
+							task.wait()
+							z.Humanoid.Health = 0
+							z.HumanoidRootPart.CFrame = CFrame.new(Vector3.new(0, -100000, 0)) * CFrame.Angles(math.rad(-90), 0, 0)
+							z.HumanoidRootPart.Velocity = Vector3.new(0, -1e7, 0)
+							bossKilled = true
+						end
 					end
 				end
 			end
