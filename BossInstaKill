@@ -11,7 +11,6 @@ repeat task.wait() until e.Character
 assert(isnetworkowner, "does not support isnetworkowner.")
 task.wait()
 
-local originalCFrame = e.Character:WaitForChild("HumanoidRootPart").CFrame
 local bossKilled = false
 
 local function s()
@@ -40,6 +39,8 @@ local function s()
 									z.HumanoidRootPart.CFrame = CFrame.new(Vector3.new(0, -100000, 0)) * CFrame.Angles(math.rad(-90), 0, 0)
 									z.HumanoidRootPart.Velocity = Vector3.new(0, -1e7, 0)
 									bossKilled = true
+								elseif z.Humanoid.Health == 0 then
+									bossKilled = true
 								end
 							end
 						end
@@ -60,7 +61,7 @@ task.spawn(
 			s()
 		    else
 			task.wait()
-    			e.Character.HumanoidRootPart.CFrame = originalCFrame
+    			e.Character.HumanoidRootPart.CFrame = CFrame.new(-29.2525959, 4423.4043, -15.5252666, 0.144498095, -4.58166376e-08, -0.989505053, -1.12855849e-08, 1, -4.79506213e-08, 0.989505053, 1.80959177e-08, 0.144498095)
 			Connection:Disconnect()
 		    end
                 end
