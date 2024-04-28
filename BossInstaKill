@@ -42,7 +42,7 @@ task.spawn(
         function()
             Connection = c.Heartbeat:Connect(
                 function()
-                    if not bossKilled then
+                    if not bossKilled and getgenv().Active then
 			s()
 		    else
 			task.wait()
