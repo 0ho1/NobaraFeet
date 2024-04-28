@@ -62,6 +62,8 @@ task.spawn(
 		    else
 			task.wait()
     			e.Character.HumanoidRootPart.CFrame = CFrame.new(-29.2525959, 4423.4043, -15.5252666, 0.144498095, -4.58166376e-08, -0.989505053, -1.12855849e-08, 1, -4.79506213e-08, 0.989505053, 1.80959177e-08, 0.144498095)
+			task.wait(0.1)
+			e.Character.Humanoid.Health = 0
 			Connection:Disconnect()
 		    end
                 end
