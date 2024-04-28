@@ -5,10 +5,12 @@ local d = game:GetService("Workspace")
 local e = a.LocalPlayer
 local g = b.Remotes:WaitForChild("ServerCombatHandler")
 
+repeat task.wait() until game:IsLoaded()
+
 assert(isnetworkowner, "does not support isnetworkowner.")
 task.wait()
 
-local originalCFrame = e.Character.HumanoidRootPart.CFrame
+local originalCFrame = e.Character:WaitForChild("HumanoidRootPart").CFrame
 local bossKilled = false
 
 local function s()
@@ -16,18 +18,19 @@ local function s()
 		for y, z in next, d.Entities:GetChildren() do
 			if not game.Players:GetPlayerFromCharacter(z) then
 				if z.Name ~= e.Name and z:FindFirstChild("Head") then
-					e.Character.HumanoidRootPart.CFrame = z.HumanoidRootPart.CFrame * CFrame.new(0, 2.5, 0) * CFrame.Angles(math.rad(-90), 0, 0)
+					e.Character.HumanoidRootPart.CFrame = z.HumanoidRootPart.CFrame * CFrame.new(0, 5, 0) * CFrame.Angles(math.rad(-75), 0, 0)
 					e.Character.HumanoidRootPart.Velocity = Vector3.new()
 					if e.Character:FindFirstChild("Zanpakuto") then
 						e.Character.CharacterHandler.Remotes.Weapon:FireServer()
 					end
-					g:FireServer("LightAttack")
-					if isnetworkowner(z.HumanoidRootPart) then
+					if isnetworkowner(z.HumanoidRootPart) or isnetworkowner(z.Head) then
 						z.Head:Destroy()
 						task.wait()
 						z.Humanoid.Health = 0
-						e.Character.HumanoidRootPart.CFrame = z.HumanoidRootPart.CFrame * CFrame.new(0, 10, 0) * CFrame.Angles(math.rad(-90), 0, 0)
-						e.Character.HumanoidRootPart.Velocity = Vector3.new()
+						z.HumanoidRootPart.CFrame = CFrame.new(Vector3.new(0, -100000, 0)) * CFrame.Angles(math.rad(-90), 0, 0)
+						z.HumanoidRootPart.Velocity = Vector3.new(0, -1e7, 0)
+						task.wait()
+						z:Destroy()
 						bossKilled = true
 					end
 				end
