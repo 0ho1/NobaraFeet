@@ -29,14 +29,12 @@ local function s()
 								e.Character.CharacterHandler.Remotes.Weapon:FireServer()
 							end
 							g:FireServer("LightAttack")
-							if isnetworkowner(z.HumanoidRootPart) or isnetworkowner(z.Head) then
+							if isnetworkowner(z.HumanoidRootPart) then
 								z.Head:Destroy()
-								task.wait()
-								if isnetworkowner(z.HumanoidRootPart) then
-									z.Humanoid.Health = 0
-									z.HumanoidRootPart.CFrame = CFrame.new(Vector3.new(0, -100000, 0)) * CFrame.Angles(math.rad(-90), 0, 0)
-									z.HumanoidRootPart.Velocity = Vector3.new(0, -1e7, 0)
-								end
+					                        task.wait()
+					                        z.Humanoid.Health = 0
+					                        e.Character.HumanoidRootPart.CFrame = z.HumanoidRootPart.CFrame * CFrame.new(0, 10, 0) * CFrame.Angles(math.rad(-90), 0, 0)
+					                        e.Character.HumanoidRootPart.Velocity = Vector3.new()
 							end
 						end
 					end
