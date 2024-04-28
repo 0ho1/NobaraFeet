@@ -2,7 +2,6 @@
 local Method = 1
 
 repeat task.wait() until game:IsLoaded()
-getgenv().loaded = false
 
 local a = game:GetService("Players")
 local b = game:GetService("ReplicatedStorage")
@@ -13,83 +12,84 @@ local x
 
 if Method == 1 then Method = "" elseif Method == 2 then Method = "Experimental" end
 
-if getgenv().Active == nil then
-	getgenv().Active = true
-else
-	getgenv().Active = not getgenv().Active
-end
+_G.queued = false
+_G.Teleporting = false
 
-if not getgenv().loaded then
-	_G.queued = false
-	_G.Teleporting = false
+if getgenv().Active then
+	if game.PlaceId == 14069678431 then -- KARAKURA
+		x = d.NPCs.RaidBoss.Kisuke
 
-	if getgenv().Active then
-		if game.PlaceId == 14069678431 then -- KARAKURA
-			x = d.NPCs.RaidBoss.Kisuke
-			if x and e.Character and e.Character:FindFirstChild("CharacterHandler") then
-				if e.PlayerGui.MissionsUI.MainFrame.Visible then
-					if not e:FindFirstChild("Kisuke") then
-						fireclickdetector(x:FindFirstChildWhichIsA("ClickDetector"))
-					else
-						e.Kisuke:FireServer("Yes")
-						if not _G.queued then
-							queue_on_teleport(
+		task.spawn(function()
+			while wait() do
+				if x and e.Character and e.Character:FindFirstChild("CharacterHandler") then
+					if e.PlayerGui.MissionsUI.MainFrame.Visible then
+						if not e:FindFirstChild("Kisuke") then
+							fireclickdetector(x:FindFirstChildWhichIsA("ClickDetector"))
+						else
+							e.Kisuke:FireServer("Yes")
+							if not _G.queued then
+								queue_on_teleport(
                                     [[
 									local clonef = clonefunction
-									local loading= clonef(loadstring)
+									local loading = clonef(loadstring)
 									loading(game:HttpGet("https://raw.githubusercontent.com/0ho1/NobaraFeet/main/AutoBoss"))()
 									]]
-							)
-							_G.queued = true
+								)
+								_G.queued = true
+							end
 						end
+					else
+						e.Character.CharacterHandler.Remotes.PartyCreate:FireServer()
 					end
-				else
-					e.Character.CharacterHandler.Remotes.PartyCreate:FireServer()
 				end
 			end
-		elseif game.PlaceId == 17047374266 then -- BOSS REALM
-			loadstring(game:HttpGet("https://raw.githubusercontent.com/0ho1/NobaraFeet/main/BossInstaKill"..Method))()
+		end)
+	elseif game.PlaceId == 17047374266 then -- BOSS REALM
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/0ho1/NobaraFeet/main/BossInstaKill"..Method))()
 
-			if not _G.queued then
-				queue_on_teleport(
-                        [[
-						local clonef = clonefunction
-						local loading= clonef(loadstring)
-						loading(game:HttpGet("https://raw.githubusercontent.com/0ho1/NobaraFeet/main/AutoBoss"))()
-						]]
-				)
-				_G.queued = true
-			end
-		else -- NOT KARAKURA / BOSS REALM
-			if not _G.queued then
-				queue_on_teleport(
+		if not _G.queued then
+			queue_on_teleport(
                         [[
 						local clonef = clonefunction
 						local loading = clonef(loadstring)
 						loading(game:HttpGet("https://raw.githubusercontent.com/0ho1/NobaraFeet/main/AutoBoss"))()
 						]]
-				)
-				_G.queued = true
-			end
-			if e.Character then
-				local A = b.Requests.RequestServerList:InvokeServer("Karakura Town")
-				b.Requests.RequestCCList:InvokeServer()
-				local function teleport()
-					local B
-					local C = math.huge
-					if A and not _G.Teleporting then
-						for y, z in next, A do
-							e.Character.CharacterHandler.Remotes.ServerListTeleport:FireServer(
-								"Karakura Town",
-								z["JobID"]
-							)
-							_G.Teleporting = true
+			)
+			_G.queued = true
+		end
+	else -- NOT KARAKURA / BOSS REALM
+		if not _G.queued then
+			queue_on_teleport(
+                        [[
+						local clonef = clonefunction
+						local loading = clonef(loadstring)
+						loading(game:HttpGet("https://raw.githubusercontent.com/0ho1/NobaraFeet/main/AutoBoss"))()
+						]]
+			)
+			_G.queued = true
+		end
+
+		task.spawn(function()
+			while wait() do
+				if e.Character then
+					local A = b.Requests.RequestServerList:InvokeServer("Karakura Town")
+					b.Requests.RequestCCList:InvokeServer()
+					local function teleport()
+						local B
+						local C = math.huge
+						if A and not _G.Teleporting then
+							for y, z in next, A do
+								e.Character.CharacterHandler.Remotes.ServerListTeleport:FireServer(
+									"Karakura Town",
+									z["JobID"]
+								)
+								_G.Teleporting = true
+							end
 						end
 					end
+					teleport()
 				end
-				teleport()
 			end
-		end
+		end)
 	end
 end
-getgenv().loaded = true
