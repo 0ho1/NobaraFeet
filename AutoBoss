@@ -14,6 +14,8 @@ if Method == 1 then Method = "" elseif Method == 2 then Method = "Experimental" 
 _G.queued = false
 _G.Teleporting = false
 
+print("auto boss raid - 4w2p")
+
 if getgenv().Active then
 	if game.PlaceId == 14069678431 then -- KARAKURA
 		x = d.NPCs.RaidBoss.Kisuke
