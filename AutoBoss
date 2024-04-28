@@ -29,14 +29,21 @@ if getgenv().Active then
 			_G.queued = true
 		end
 
+		local i = false
+
 		task.spawn(function()
 			while wait() do
 				if x and e.Character and e.Character:FindFirstChild("CharacterHandler") then
 					if e.PlayerGui.MissionsUI.MainFrame.Visible then
-						if not e:FindFirstChild("Kisuke") then
-							fireclickdetector(x:FindFirstChildWhichIsA("ClickDetector"))
+						if not i then
+							if not e:FindFirstChild("Kisuke") then
+								fireclickdetector(x:FindFirstChildWhichIsA("ClickDetector"))
+							else
+								e.Kisuke:FireServer("Yes")
+								i = true
+							end
 						else
-							e.Kisuke:FireServer("Yes")
+							break
 						end
 					else
 						e.Character.CharacterHandler.Remotes.PartyCreate:FireServer()
