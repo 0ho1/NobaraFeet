@@ -1,5 +1,6 @@
 local a = game:GetService("Players")
 local b = game:GetService("ReplicatedStorage")
+local c = game:GetService("RunService")
 local d = game:GetService("Workspace")
 local e = a.LocalPlayer
 local g = b.Remotes:WaitForChild("ServerCombatHandler")
