@@ -25,6 +25,7 @@ local function s()
 						if tick() - z.timeSpawned.Value > 0.1 then
 							e.Character.HumanoidRootPart.CFrame = z.HumanoidRootPart.CFrame * CFrame.new(0, 10, 0) * CFrame.Angles(math.rad(-100), 0, 0)
 							e.Character.HumanoidRootPart.Velocity = Vector3.new()
+							e.Character.Humanoid.Jump = true
 							if e.Character:FindFirstChild("Zanpakuto") then
 								e.Character.CharacterHandler.Remotes.Weapon:FireServer()
 							end
