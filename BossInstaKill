@@ -11,8 +11,6 @@ repeat task.wait() until e.Character
 assert(isnetworkowner, "does not support isnetworkowner.")
 task.wait()
 
-local bossKilled = false
-
 local function s()
 	coroutine.resume(coroutine.create(function()
 		for y, z in next, d.Entities:GetChildren() do
@@ -23,9 +21,9 @@ local function s()
 						timeSpawned.Name = "timeSpawned"
 						timeSpawned.Value = tick()
 					end
-					if z:FindFirstChild("Humanoid") and z:FindFirstChildOfClass("Shirt") and z:FindFirstChildOfClass("Pants") and z:FindFirstChildOfClass("BodyColors") then
+					if z:FindFirstChild("Humanoid") and z:FindFirstChildOfClass("Shirt") and z:FindFirstChildOfClass("BodyColors") then
 						if tick() - z.timeSpawned.Value > 0.1 then
-							e.Character.HumanoidRootPart.CFrame = z.HumanoidRootPart.CFrame * CFrame.new(0, 5, 0) * CFrame.Angles(math.rad(-100), 0, 0)
+							e.Character.HumanoidRootPart.CFrame = z.HumanoidRootPart.CFrame * CFrame.new(0, 10, 0) * CFrame.Angles(math.rad(-100), 0, 0)
 							e.Character.HumanoidRootPart.Velocity = Vector3.new()
 							if e.Character:FindFirstChild("Zanpakuto") then
 								e.Character.CharacterHandler.Remotes.Weapon:FireServer()
@@ -38,9 +36,6 @@ local function s()
 									z.Humanoid.Health = 0
 									z.HumanoidRootPart.CFrame = CFrame.new(Vector3.new(0, -100000, 0)) * CFrame.Angles(math.rad(-90), 0, 0)
 									z.HumanoidRootPart.Velocity = Vector3.new(0, -1e7, 0)
-									bossKilled = true
-								elseif z.Humanoid.Health == 0 then
-									bossKilled = true
 								end
 							end
 						end
@@ -57,15 +52,8 @@ task.spawn(
         function()
             Connection = c.Heartbeat:Connect(
                 function()
-                    if not bossKilled and getgenv().Active then
+                    if getgenv().Active then
 			s()
-		    else
-			task.wait()
-			if z.Humanoid.Health == 0 then
-				Connection:Disconnect()
-			else
-				bossKilled = false
-			end
 		    end
                 end
             )
