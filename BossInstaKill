@@ -16,6 +16,7 @@ assert(isnetworkowner, "does not support isnetworkowner.")
 task.wait()
 
 local webhookURL = getgenv().Webhook
+print(webhookURL)
 
 local rBossDrops = {
 	"Yhwach Almighty Cloak",
