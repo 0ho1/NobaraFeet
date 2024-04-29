@@ -1,15 +1,46 @@
-local a = game:GetService("Players")
-local b = game:GetService("ReplicatedStorage")
-local c = game:GetService("RunService")
-local d = game:GetService("Workspace")
+local cloneref = cloneref or function(o) return o end
+
+local a = cloneref(game:GetService("Players"))
+local b = cloneref(game:GetService("ReplicatedStorage"))
+local c = cloneref(game:GetService("RunService"))
+local d = cloneref(game:GetService("Workspace"))
 local e = a.LocalPlayer
 local g = b.Remotes:WaitForChild("ServerCombatHandler")
+
+local webhookURL = getgenv().Webhook
 
 repeat task.wait() until game:IsLoaded()
 repeat task.wait() until e.Character
 
+local ScreenEffects = e.PlayerGui:FindFirstChild("ScreenEffects")
+
 assert(isnetworkowner, "does not support isnetworkowner.")
 task.wait()
+
+local rBossDrops = {
+	"Yhwach Almighty Cloak",
+	"Dreadful Bone Mask",
+	"Dreadful Bone Armor",
+	"Dark Feng Headband",
+	"Feng Star",
+	"Min Starrk Mask"
+}
+
+local function Notify(Item, Ping)
+	request({
+		Url = webhookURL,
+		Method = "POST",
+		Body = HTTPService:JSONEncode({
+			content = ((Ping and "@everyone") or ""),
+			embeds = {{
+				title = `Item Drop`,
+				color = 16711680,
+				description = Item
+			}}
+		}),
+		Headers = {["Content-Type"] = "application/json"}
+	})
+end
 
 local function s()
 	coroutine.resume(coroutine.create(function()
@@ -44,6 +75,16 @@ local function s()
 		end
 	end))
 end
+
+ScreenEffects.ChildAdded:Connect(function(object)
+	if object.Name == "ItemFrame" then
+		local Item = string.gsub(object:WaitForChild("TextLabel").Text, " obtained.", "")
+		
+		if webhookURL ~= "" and webhookURL ~= nil then
+			Notify(Item, (table.find(rBossDrops, Item) ~= nil))
+		end
+	end
+end)
 
 local Connection
 
