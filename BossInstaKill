@@ -15,7 +15,7 @@ local ScreenEffects = e.PlayerGui:FindFirstChild("ScreenEffects")
 assert(isnetworkowner, "does not support isnetworkowner.")
 task.wait()
 
-local webhookURL = getgenv().Webhook
+local webhookURL = Webhook
 print(webhookURL)
 
 local rBossDrops = {
