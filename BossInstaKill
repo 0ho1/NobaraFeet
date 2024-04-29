@@ -7,8 +7,6 @@ local d = cloneref(game:GetService("Workspace"))
 local e = a.LocalPlayer
 local g = b.Remotes:WaitForChild("ServerCombatHandler")
 
-local webhookURL = getgenv().Webhook
-
 repeat task.wait() until game:IsLoaded()
 repeat task.wait() until e.Character
 
@@ -16,6 +14,8 @@ local ScreenEffects = e.PlayerGui:FindFirstChild("ScreenEffects")
 
 assert(isnetworkowner, "does not support isnetworkowner.")
 task.wait()
+
+local webhookURL = getgenv().Webhook
 
 local rBossDrops = {
 	"Yhwach Almighty Cloak",
