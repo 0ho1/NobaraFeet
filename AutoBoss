@@ -17,6 +17,7 @@ _G.Teleporting = false
 if getgenv().Active == nil then
 	getgenv().Active = true
 end
+local currentWebhook = getgenv().Webhook
 
 print("auto boss raid - 4w2p")
 
@@ -25,7 +26,10 @@ if getgenv().Active then
 		x = d.NPCs.RaidBoss.Kisuke
 		
 		if not _G.queued then
-			queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/0ho1/NobaraFeet/main/AutoBoss'))()")
+			queue_on_teleport([[
+				getgenv().Webhook = currentWebhook
+				loadstring(game:HttpGet('https://raw.githubusercontent.com/0ho1/NobaraFeet/main/AutoBoss'))()
+			]])
 			_G.queued = true
 		end
 
@@ -55,12 +59,18 @@ if getgenv().Active then
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/0ho1/NobaraFeet/main/BossInstaKill"..Method))()
 
 		if not _G.queued then
-			queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/0ho1/NobaraFeet/main/AutoBoss'))()")
+			queue_on_teleport([[
+				getgenv().Webhook = currentWebhook
+				loadstring(game:HttpGet('https://raw.githubusercontent.com/0ho1/NobaraFeet/main/AutoBoss'))()
+			]])
 			_G.queued = true
 		end
 	else -- NOT KARAKURA / BOSS REALM
 		if not _G.queued then
-			queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/0ho1/NobaraFeet/main/AutoBoss'))()")
+			queue_on_teleport([[
+				getgenv().Webhook = currentWebhook
+				loadstring(game:HttpGet('https://raw.githubusercontent.com/0ho1/NobaraFeet/main/AutoBoss'))()
+			]])
 			_G.queued = true
 		end
 
