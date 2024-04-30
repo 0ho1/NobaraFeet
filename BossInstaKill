@@ -33,7 +33,7 @@ function Format(Int)
 	return string.format("%02i", Int)
 end
 
-function convertToHMS(Seconds)
+local function convertToHMS(Seconds)
 	local Minutes = (Seconds - Seconds%60)/60
 	Seconds = Seconds - Minutes*60
 	local Hours = (Minutes - Minutes%60)/60
