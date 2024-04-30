@@ -10,7 +10,7 @@ local g = b.Remotes:WaitForChild("ServerCombatHandler")
 repeat task.wait() until game:IsLoaded()
 repeat task.wait() until e.Character
 
-local ScreenEffects = e.PlayerGui:FindFirstChild("ScreenEffects")
+local ScreenEffects = e.PlayerGui:WaitForChild("ScreenEffects", 1)
 
 assert(isnetworkowner, "does not support isnetworkowner.")
 task.wait()
@@ -77,15 +77,19 @@ local function s()
 	end))
 end
 
-ScreenEffects.ChildAdded:Connect(function(object)
-	if object.Name == "ItemFrame" then
-		local Item = string.gsub(object:WaitForChild("TextLabel").Text, " obtained.", "")
-		
-		if webhookURL ~= "" and webhookURL ~= nil then
-			Notify(Item, (table.find(rBossDrops, Item) ~= nil))
+if ScreenEffects then
+	ScreenEffects.ChildAdded:Connect(function(object)
+		if object.Name == "ItemFrame" then
+			local Item = string.gsub(object:WaitForChild("TextLabel").Text, " obtained.", "")
+			
+			if webhookURL ~= "" and webhookURL ~= nil then
+				Notify(Item, (table.find(rBossDrops, Item) ~= nil))
+			end
 		end
-	end
-end)
+	end)
+else
+	warn("Unable to Notify [UI FAILED TO LOAD]")
+end
 
 local Connection
 
