@@ -24,7 +24,8 @@ local rBossDrops = {
 	"Dreadful Bone Armor",
 	"Dark Feng Headband",
 	"Feng Star",
-	"Min Starrk Mask"
+	"Min Starrk Mask",
+	"True Hogyoku"
 }
 
 local elapsedTime = nil
