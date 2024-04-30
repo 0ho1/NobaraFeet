@@ -18,6 +18,7 @@ if getgenv().Active == nil then
 	getgenv().Active = true
 end
 local currentWebhook = Webhook
+print(currentWebhook)
 
 print("auto boss raid - 4w2p")
 
