@@ -15,8 +15,7 @@ local ScreenEffects = e.PlayerGui:WaitForChild("ScreenEffects", 1)
 assert(isnetworkowner, "does not support isnetworkowner.")
 task.wait()
 
-local webhookURL = Webhook
-print(webhookURL)
+local webhookURL = readfile("NobaraWebhook.txt")
 
 local rBossDrops = {
 	"Yhwach Almighty Cloak",
