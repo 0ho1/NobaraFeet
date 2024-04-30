@@ -38,7 +38,7 @@ local function convertToHMS(Seconds)
 	Seconds = Seconds - Minutes*60
 	local Hours = (Minutes - Minutes%60)/60
 	Minutes = Minutes - Hours*60
-	return string.gsub(Format(Hours).."h "..Format(Minutes).."m "..Format(Seconds).."s", "00h", "")
+	return string.gsub(string.gsub(Format(Hours).."h "..Format(Minutes).."m "..Format(Seconds).."s", "00h", ""), "00m", "")
 end
 
 local function Notify(Item, Ping)
