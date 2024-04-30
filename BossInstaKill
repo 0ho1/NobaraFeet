@@ -55,7 +55,7 @@ local function Notify(Item, Ping)
 	                        }, {
 	                            name = "Elapsed Time",
 	                            value = convertToHMS(elapsedTime)
-	                        }}
+	                        }},
 				description = Item
 			}}
 		}),
