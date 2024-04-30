@@ -17,6 +17,9 @@ _G.Teleporting = false
 if getgenv().Active == nil then
 	getgenv().Active = true
 end
+if getgenv().Webhook ~= nil then
+	writefile("NobaraWebhook.txt", getgenv().Webhook)
+end
 
 print("auto boss raid - 4w2p")
 
