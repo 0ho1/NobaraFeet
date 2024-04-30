@@ -18,7 +18,7 @@ if getgenv().Active == nil then
 	getgenv().Active = true
 end
 local currentWebhook = Webhook
-print(currentWebhook)
+print(currentWebhook.." | nobara toes")
 
 print("auto boss raid - 4w2p")
 
