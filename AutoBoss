@@ -17,8 +17,6 @@ _G.Teleporting = false
 if getgenv().Active == nil then
 	getgenv().Active = true
 end
-local currentWebhook = Webhook
-print(currentWebhook.." | nobara toes")
 
 print("auto boss raid - 4w2p")
 
@@ -28,7 +26,6 @@ if getgenv().Active then
 		
 		if not _G.queued then
 			queue_on_teleport([[
-				local Webhook = currentWebhook
 				loadstring(game:HttpGet('https://raw.githubusercontent.com/0ho1/NobaraFeet/main/AutoBoss'))()
 			]])
 			_G.queued = true
@@ -61,7 +58,6 @@ if getgenv().Active then
 
 		if not _G.queued then
 			queue_on_teleport([[
-				local Webhook = currentWebhook
 				loadstring(game:HttpGet('https://raw.githubusercontent.com/0ho1/NobaraFeet/main/AutoBoss'))()
 			]])
 			_G.queued = true
@@ -69,7 +65,6 @@ if getgenv().Active then
 	else -- NOT KARAKURA / BOSS REALM
 		if not _G.queued then
 			queue_on_teleport([[
-				local Webhook = currentWebhook
 				loadstring(game:HttpGet('https://raw.githubusercontent.com/0ho1/NobaraFeet/main/AutoBoss'))()
 			]])
 			_G.queued = true
