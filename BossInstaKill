@@ -27,6 +27,8 @@ local rBossDrops = {
 	"Min Starrk Mask"
 }
 
+local elapsedTime = nil
+
 local function Notify(Item, Ping)
 	request({
 		Url = webhookURL,
@@ -34,8 +36,14 @@ local function Notify(Item, Ping)
 		Body = f:JSONEncode({
 			content = ((Ping and "@everyone") or ""),
 			embeds = {{
-				title = `Item Drop`,
 				color = 16711680,
+				fields = {{
+	                            name = "Item Drop",
+	                            value = Item
+	                        }, {
+	                            name = "Elapsed Time",
+	                            value = tostring(elapsedTime)
+	                        }}
 				description = Item
 			}}
 		}),
@@ -63,6 +71,7 @@ local function s()
 							end
 							g:FireServer("LightAttack")
 							if isnetworkowner(z.HumanoidRootPart) then
+								elapsedTime = tick() - z.timeSpawned.Value
 								z.Head:Destroy()
 					                        task.wait()
 					                        z.Humanoid.Health = 0
