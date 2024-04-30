@@ -4,6 +4,7 @@ local a = cloneref(game:GetService("Players"))
 local b = cloneref(game:GetService("ReplicatedStorage"))
 local c = cloneref(game:GetService("RunService"))
 local d = cloneref(game:GetService("Workspace"))
+local f = cloneref(game:GetService("HttpService"))
 local e = a.LocalPlayer
 local g = b.Remotes:WaitForChild("ServerCombatHandler")
 
@@ -30,7 +31,7 @@ local function Notify(Item, Ping)
 	request({
 		Url = webhookURL,
 		Method = "POST",
-		Body = HTTPService:JSONEncode({
+		Body = f:JSONEncode({
 			content = ((Ping and "@everyone") or ""),
 			embeds = {{
 				title = `Item Drop`,
