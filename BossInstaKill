@@ -29,6 +29,18 @@ local rBossDrops = {
 
 local elapsedTime = nil
 
+function Format(Int)
+	return string.format("%02i", Int)
+end
+
+function convertToHMS(Seconds)
+	local Minutes = (Seconds - Seconds%60)/60
+	Seconds = Seconds - Minutes*60
+	local Hours = (Minutes - Minutes%60)/60
+	Minutes = Minutes - Hours*60
+	return string.gsub(Format(Hours).."h "..Format(Minutes).."m "..Format(Seconds).."s", "00h", "")
+end
+
 local function Notify(Item, Ping)
 	request({
 		Url = webhookURL,
@@ -42,7 +54,7 @@ local function Notify(Item, Ping)
 	                            value = Item
 	                        }, {
 	                            name = "Elapsed Time",
-	                            value = tostring(elapsedTime)
+	                            value = convertToHMS(elapsedTime)
 	                        }}
 				description = Item
 			}}
