@@ -1,5 +1,7 @@
 local cloneref = cloneref or function(o) return o end
 
+local getinfo = getinfo or debug.getinfo
+
 local a = cloneref(game:GetService("Players"))
 local b = cloneref(game:GetService("ReplicatedStorage"))
 local c = cloneref(game:GetService("RunService"))
